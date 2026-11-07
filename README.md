@@ -60,7 +60,7 @@ Dalamud 的「插件 XXX 安装失败，请重启游戏后再试一次」是个�
 如果只是 GitHub 下载不通（国内常见），可以打开
 [Releases 页面](https://github.com/solenmingco/BozjaPilot/releases/latest) 用浏览器直接下 `BozjaPilot.zip`，
 解压后把 `BozjaPilot.dll` 和 `BozjaPilot.json` 一起放进
-`%APPDATA%\XIVLauncherCN\installedPlugins\BozjaPilot\1.0.1.0\`，重启游戏即可。
+`%APPDATA%\XIVLauncherCN\installedPlugins\BozjaPilot\1.0.2.0\`，重启游戏即可。
 
 ## 使用
 
