@@ -17,32 +17,85 @@ public sealed class Plugin : IDalamudPlugin
 
     public Plugin(IDalamudPluginInterface pluginInterface)
     {
-        pluginInterface.Create<Services>();
-        Services.Init(pluginInterface);
-
-        Config = pluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
-        Engine = new AutomationEngine(Config);
-
-        mainWindow = new MainWindow(this);
-        configWindow = new ConfigWindow(this);
-        overlayWindow = new OverlayWindow(this);
-
-        Services.Commands.AddHandler(CommandName, new CommandInfo(OnCommand)
+        try
         {
-            HelpMessage = "打开 BozjaPilot。参数：on / off / toggle / config / scan"
-        });
-        Services.Commands.AddHandler("/bozjapilot", new CommandInfo(OnCommand)
+            Stage("注入 Dalamud 服务", () => pluginInterface.Create<Services>());
+            Stage("初始化服务定位器", () => Services.Init(pluginInterface));
+
+            Configuration? loadedConfig = null;
+            Stage("读取配置", () => loadedConfig = pluginInterface.GetPluginConfig() as Configuration);
+            Config = loadedConfig ?? new Configuration();
+
+            AutomationEngine? engine = null;
+            Stage("构建自动化引擎", () => engine = new AutomationEngine(Config));
+            Engine = engine!;
+
+            mainWindow = new MainWindow(this);
+            configWindow = new ConfigWindow(this);
+            overlayWindow = new OverlayWindow(this);
+
+            Stage("注册命令", () =>
+            {
+                Services.Commands.AddHandler(CommandName, new CommandInfo(OnCommand)
+                {
+                    HelpMessage = "打开 BozjaPilot。参数：on / off / toggle / config / scan"
+                });
+                Services.Commands.AddHandler("/bozjapilot", new CommandInfo(OnCommand)
+                {
+                    HelpMessage = "打开 BozjaPilot（/bzp 的别名）",
+                    ShowInHelp = false
+                });
+            });
+
+            Stage("挂接界面与主循环", () =>
+            {
+                pluginInterface.UiBuilder.Draw += Draw;
+                pluginInterface.UiBuilder.OpenConfigUi += OpenConfig;
+                pluginInterface.UiBuilder.OpenMainUi += OpenMain;
+                Services.Framework.Update += OnUpdate;
+            });
+
+            Services.Log.Info("[BozjaPilot] loaded");
+        }
+        catch (Exception ex)
         {
-            HelpMessage = "打开 BozjaPilot（/bzp 的别名）",
-            ShowInHelp = false
-        });
+            // Dalamud 的安装/加载错误框只会说"安装失败"，不带原因。把真实异常落到插件目录，
+            // 方便用户直接把文件发回来定位。
+            WriteStartupFailure(pluginInterface, ex);
+            throw;
+        }
+    }
 
-        pluginInterface.UiBuilder.Draw += Draw;
-        pluginInterface.UiBuilder.OpenConfigUi += OpenConfig;
-        pluginInterface.UiBuilder.OpenMainUi += OpenMain;
-        Services.Framework.Update += OnUpdate;
+    private static void Stage(string name, Action action)
+    {
+        try
+        {
+            action();
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException($"[BozjaPilot] 启动阶段『{name}』失败：{ex.Message}", ex);
+        }
+    }
 
-        Services.Log.Info("[BozjaPilot] loaded");
+    private static void WriteStartupFailure(IDalamudPluginInterface pluginInterface, Exception ex)
+    {
+        try
+        {
+            var dir = pluginInterface.GetPluginConfigDirectory();
+            Directory.CreateDirectory(dir);
+            var path = Path.Combine(dir, "startup-error.log");
+            var text = $"""
+                        === {DateTime.Now:O} ===
+                        {ex}
+
+                        """;
+            File.AppendAllText(path, text);
+        }
+        catch
+        {
+            // 连写文件都失败就没办法了，至少异常仍会抛给 Dalamud。
+        }
     }
 
     public Configuration Config { get; }

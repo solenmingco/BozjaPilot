@@ -46,7 +46,21 @@
 
 3. 在插件列表里搜索 **BozjaPilot** 安装。
 
-> 也可以直接把 Release 里的 `BozjaPilot.zip` 解压到 `%APPDATA%\XIVLauncher\devPlugins\BozjaPilot\` 做本地开发测试。
+> 也可以直接把 Release 里的 `BozjaPilot.zip` 解压到 `%APPDATA%\XIVLauncherCN\devPlugins\BozjaPilot\` 做本地开发测试。
+
+### 安装失败怎么办
+
+Dalamud 的「插件 XXX 安装失败，请重启游戏后再试一次」是个通用错误框，真实原因只有一个地方能看到：
+
+- 本插件自己的启动日志：`%APPDATA%\XIVLauncherCN\pluginConfigs\BozjaPilot\startup-error.log`
+- Dalamud 主日志：`%APPDATA%\XIVLauncherCN\dalamud.log`，搜索 `BozjaPilot`
+
+两个文件里搜到的第一段异常堆栈，就是失败原因。
+
+如果只是 GitHub 下载不通（国内常见），可以直接下载
+[dist/BozjaPilot.zip](https://cdn.jsdelivr.net/gh/solenmingco/BozjaPilot@main/dist/BozjaPilot.zip)，
+解压后把 `BozjaPilot.dll` 和 `BozjaPilot.json` 一起放进
+`%APPDATA%\XIVLauncherCN\installedPlugins\BozjaPilot\1.0.1.0\`，重启游戏即可。
 
 ## 使用
 
