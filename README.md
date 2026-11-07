@@ -1,3 +1,11 @@
+> **此仓库已被取代。** 请改用 [solenmingco/Botja](https://github.com/solenmingco/Botja)：
+> 它基于 [Phoenixium/CBB](https://github.com/Phoenixium/CBB)，FATE 选点/导航/战斗接管更完整，
+> 并且修好了本插件的**紧急遭遇战报名**——博兹雅的 CE 无法靠「站进圈里」加入，
+> 必须在游戏自带的报名窗口里按下按钮，本插件只做跑位，因此 CE 实际上加入不了。
+>
+> 新插件地址（填进 Dalamud 自定义插件仓库）：
+> `https://raw.githubusercontent.com/solenmingco/Botja/main/repo.json`
+
 # BozjaPilot
 
 博兹雅（南方战线 Bozjan Southern Front / 天佑女王 Zadnor）自动刷 **遭遇战 (Skirmish)** 与
