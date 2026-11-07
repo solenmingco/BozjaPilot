@@ -115,8 +115,18 @@ public sealed class Plugin : IDalamudPlugin
             Services.PluginInterface.UiBuilder.OpenMainUi -= OpenMain;
         }
 
-        Engine.Movement.Stop();
-        Engine.Combat.Disengage();
+        // Unloading can also happen off the framework thread; anything that talks to the game
+        // or another plugin's IPC must not be allowed to throw out of Dispose.
+        try
+        {
+            Engine.Movement.Stop();
+            Engine.Combat.Disengage();
+        }
+        catch (Exception ex)
+        {
+            Services.Log.Debug(ex, "[BozjaPilot] cleanup during dispose failed (ignored)");
+        }
+
         Config.Save();
     }
 

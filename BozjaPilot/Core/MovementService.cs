@@ -22,12 +22,18 @@ public sealed class MovementService
     private DateTime lastCommandTime = DateTime.MinValue;
 
     private int stuckAttempts;
+    private bool hasBaseline;
 
     public MovementService(Configuration configuration)
     {
         config = configuration;
+
+        // NOTE: never touch game state here. Dalamud loads plugins off the main thread, and
+        // ObjectTable.LocalPlayer throws "Not on main thread!" when called from the ctor,
+        // which surfaces to the user as a generic "插件安装失败". The progress baseline is
+        // taken lazily on the first Tick(), which always runs on the framework thread.
         SetupIpc();
-        lastProgressPosition = GameState.PlayerPosition;
+        lastProgressTime = DateTime.UtcNow;
     }
 
     public bool NavmeshAvailable => navMove != null;
@@ -151,6 +157,16 @@ public sealed class MovementService
     {
         StuckThisTick = false;
 
+        // First tick after (re)load establishes the baseline, so the character is not
+        // instantly considered "stuck" or "moving" because of a zero initial position.
+        if (!hasBaseline)
+        {
+            hasBaseline = true;
+            lastProgressPosition = currentPosition;
+            lastProgressTime = now;
+            return;
+        }
+
         if (!wantToMove)
         {
             if (stuckAttempts != 0) stuckAttempts = 0;
@@ -199,7 +215,7 @@ public sealed class MovementService
     {
         stuckAttempts = 0;
         lastProgressTime = DateTime.UtcNow;
-        lastProgressPosition = GameState.PlayerPosition;
+        hasBaseline = false;
     }
 
     /// <summary>Mount when the destination is far, sprint when it is close.</summary>
