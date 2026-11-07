@@ -1,0 +1,25 @@
+{
+  "Author": "BozjaPilot contributors",
+  "Name": "BozjaPilot",
+  "InternalName": "BozjaPilot",
+  "Punchline": "博兹雅 / 天佑女王 自动刷遭遇战与紧急任务",
+  "Description": "为南方战线（Bozjan Southern Front）与天佑女王（Zadnor）设计的自动化助手：\n- 实时读取 DynamicEvent，区分遭遇战(Skirmish)与紧急任务(CE)\n- CE 报名阶段自动赶赴魔法阵并确认报名状态\n- 按剩余时间/路程/进度综合评分挑选最优目标，避免白跑\n- 自动寻路、上坐骑、脱战、卡住自救、死亡处理\n- 需要 vnavmesh 提供寻路，战斗循环请自备（RSR / WrathCombo / BossMod）\n\n命令：\n  /bzp            打开主窗口\n  /bzp on|off     开始 / 停止\n  /bzp config     设置\n  /bzp scan       打印当前扫描到的活动（调试）",
+  "ApplicableVersion": "any",
+  "RepoUrl": "https://github.com/USER/BozjaPilot",
+  "DalamudApiLevel": 15,
+  "Tags": [
+    "Bozja",
+    "Zadnor",
+    "Southern Front",
+    "Critical Engagement",
+    "Skirmish",
+    "FATE",
+    "Automation"
+  ],
+  "CategoryTags": [
+    "utility"
+  ],
+  "LoadPriority": 0,
+  "IsHide": false,
+  "IsTestingExclusive": false
+}
