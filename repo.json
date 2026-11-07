@@ -6,15 +6,15 @@
     "Punchline": "博兹雅 / 天佑女王 自动刷遭遇战与紧急任务",
     "Description": "为南方战线与天佑女王设计的自动化助手：CE 报名窗口可行性判定、真实报名状态检测、遭遇战/CE 综合评分选点、卡住自救与阵亡恢复。需要 vnavmesh，战斗循环自备。",
     "ApplicableVersion": "any",
-    "RepoUrl": "https://github.com/USER/BozjaPilot",
+    "RepoUrl": "https://github.com/solenmingco/BozjaPilot",
     "DalamudApiLevel": 15,
     "Tags": ["Bozja", "Zadnor", "Critical Engagement", "Skirmish", "Automation"],
     "CategoryTags": ["utility"],
     "LoadPriority": 0,
     "IsHide": false,
     "IsTestingExclusive": false,
-    "DownloadLinkInstall": "https://github.com/USER/BozjaPilot/releases/latest/download/BozjaPilot.zip",
-    "DownloadLinkUpdate": "https://github.com/USER/BozjaPilot/releases/latest/download/BozjaPilot.zip",
+    "DownloadLinkInstall": "https://github.com/solenmingco/BozjaPilot/releases/latest/download/BozjaPilot.zip",
+    "DownloadLinkUpdate": "https://github.com/solenmingco/BozjaPilot/releases/latest/download/BozjaPilot.zip",
     "AssemblyVersion": "1.0.0.0"
   }
 ]

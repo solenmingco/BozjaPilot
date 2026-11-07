@@ -41,7 +41,7 @@
 2. Dalamud 设置 → 实验性 → 自定义插件仓库，添加：
 
    ```text
-   https://raw.githubusercontent.com/USER/BozjaPilot/main/repo.json
+   https://raw.githubusercontent.com/solenmingco/BozjaPilot/main/repo.json
    ```
 
 3. 在插件列表里搜索 **BozjaPilot** 安装。
@@ -101,7 +101,7 @@
 ## 开发
 
 ```bash
-git clone https://github.com/USER/BozjaPilot
+git clone https://github.com/solenmingco/BozjaPilot
 cd BozjaPilot
 dotnet build BozjaPilot/BozjaPilot.csproj -c Release
 ```
