@@ -57,8 +57,8 @@ Dalamud 的「插件 XXX 安装失败，请重启游戏后再试一次」是个�
 
 两个文件里搜到的第一段异常堆栈，就是失败原因。
 
-如果只是 GitHub 下载不通（国内常见），可以直接下载
-[dist/BozjaPilot.zip](https://cdn.jsdelivr.net/gh/solenmingco/BozjaPilot@main/dist/BozjaPilot.zip)，
+如果只是 GitHub 下载不通（国内常见），可以打开
+[Releases 页面](https://github.com/solenmingco/BozjaPilot/releases/latest) 用浏览器直接下 `BozjaPilot.zip`，
 解压后把 `BozjaPilot.dll` 和 `BozjaPilot.json` 一起放进
 `%APPDATA%\XIVLauncherCN\installedPlugins\BozjaPilot\1.0.1.0\`，重启游戏即可。
 
